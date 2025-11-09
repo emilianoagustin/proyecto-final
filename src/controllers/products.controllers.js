@@ -1,8 +1,8 @@
-export function getProducts(req, res) {
+export function getAllProducts(req, res) {
   res.json({ message: "message from getProducts" });
 }
 
-export function getProduct(req, res) {
+export function getProductById(req, res) {
   res.json({ message: "message from getProduct" });
 }
 export function createProduct(req, res) {
