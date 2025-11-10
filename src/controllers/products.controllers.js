@@ -31,8 +31,21 @@ export async function createProduct(req, res) {
       .json({ success: false, message: "There's a missing product property" });
   const product = await Model.createProduct({ name, price, categories });
 
-  res.status(201).json(product);
+  res.status(201).json({
+    success: true,
+    message: "Product created successfully",
+    data: product,
+  });
 }
-export function deleteProduct(req, res) {
-  res.json({ message: "message from deleteProduct" });
+export async function deleteProduct(req, res) {
+  const { id } = req.params;
+
+  const deleted = await Model.deleteProduct(id);
+
+  !deleted
+    ? res.status(404).json({ success: false, message: "Product not found" })
+    : res.status(204).json({
+        success: true,
+        message: `Product with id ${id} deleted successfully`,
+      });
 }
