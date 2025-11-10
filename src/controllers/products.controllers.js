@@ -23,8 +23,15 @@ export async function getProductById(req, res) {
         .json({ success: false, message: "Product doesn't exists" })
     : res.json(product);
 }
-export function createProduct(req, res) {
-  res.json({ message: "message from createProduct" });
+export async function createProduct(req, res) {
+  const { name, price, categories } = req.body;
+  if (!name || !price || !categories)
+    return res
+      .status(400)
+      .json({ success: false, message: "There's a missing product property" });
+  const product = await Model.createProduct({ name, price, categories });
+
+  res.status(201).json(product);
 }
 export function deleteProduct(req, res) {
   res.json({ message: "message from deleteProduct" });

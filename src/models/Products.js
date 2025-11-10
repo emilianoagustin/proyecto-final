@@ -1,5 +1,5 @@
 import { db } from "./firebase.js";
-import { collection, getDocs, getDoc, doc } from "firebase/firestore";
+import { collection, getDocs, getDoc, addDoc, doc } from "firebase/firestore";
 
 const productsCollection = collection(db, "products");
 
@@ -19,5 +19,14 @@ export async function getProductById(id) {
     return snapshot.exists() ? { id: snapshot.id, ...snapshot.data() } : null;
   } catch (error) {
     console.error(`Error retrieving data from product with id ${id}: ${error}`);
+  }
+}
+
+export async function createProduct(data) {
+  try {
+    const productRef = await addDoc(productsCollection, data);
+    return { id: productRef.id, ...data };
+  } catch (error) {
+    console.error(`Error creating a new product: ${error}`);
   }
 }
