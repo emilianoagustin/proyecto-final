@@ -1,3 +1,4 @@
+import "dotenv/config";
 import express from "express";
 import cors from "cors";
 import bodyParser from "body-parser";
@@ -5,7 +6,7 @@ import notFound from "./src/middlewares/not-found.js";
 import productRoutes from "./src/routes/products.routes.js";
 import authRoutes from "./src/routes/auth.routes.js";
 
-const PORT = 8080;
+const PORT = process.env.PORT || 3000;
 const app = express();
 
 app.use(bodyParser.json());
