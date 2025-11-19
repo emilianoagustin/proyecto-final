@@ -51,3 +51,16 @@ export async function deleteProduct(id) {
     console.error(`Error deleting the product with id ${id}: ${error}`);
   }
 }
+
+export async function updateProduct(id, data) {
+  try {
+    const productRef = doc(productsCollection, id);
+    const snapshot = await getDoc(productRef);
+
+    snapshot.exists() ? await productRef.update(data) : null;
+
+    return { id: snapshot.id, ...data };
+  } catch (error) {
+    console.error(`Error updating product with id ${id}: ${error}`);
+  }
+}

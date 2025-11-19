@@ -55,3 +55,25 @@ export async function deleteProduct(req, res) {
         message: `Product with id ${id} deleted successfully`,
       });
 }
+
+export async function updateProduct(req, res) {
+  const { id } = req.params;
+  const { name, price, categories } = req.body;
+
+  const updatedProduct = await ProductService.updateProduct(id, {
+    name,
+    price,
+    categories,
+  });
+
+  if (!updatedProduct)
+    return res
+      .status(404)
+      .json({ success: false, message: "Product doesn't exists" });
+
+  res.status(201).json({
+    success: true,
+    message: "Product updated successfully",
+    data: updatedProduct,
+  });
+}
