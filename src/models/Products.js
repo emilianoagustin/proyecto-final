@@ -5,6 +5,7 @@ import {
   getDoc,
   addDoc,
   deleteDoc,
+  setDoc,
   doc,
 } from "firebase/firestore";
 
@@ -56,8 +57,9 @@ export async function updateProduct(id, data) {
   try {
     const productRef = doc(productsCollection, id);
     const snapshot = await getDoc(productRef);
-
-    snapshot.exists() ? await productRef.update(data) : null;
+    snapshot.exists()
+      ? await setDoc(productRef, { ...data }, { merge: true })
+      : null;
 
     return { id: snapshot.id, ...data };
   } catch (error) {
