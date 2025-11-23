@@ -9,15 +9,7 @@ export async function registerUser(email, passwordHash) {
       email,
       password: passwordHash,
     });
-
-    const q = query(usersCollection, where("email", "==", email));
-    const snapshot = await getDocs(q);
-    if (!snapshot.empty) {
-      const doc = snapshot.docs[0];
-      return { id: doc.id, ...doc.data() };
-    } else {
-      return null;
-    }
+    return { id: userRef.id, email };
   } catch (error) {
     console.error(`Error with user register: ${error}`);
   }
