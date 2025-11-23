@@ -1,13 +1,79 @@
-export function getProducts(req, res) {
-  res.json({ message: "message from getProducts" });
+import * as ProductService from "../services/products.service.js";
+
+export async function getAllProducts(req, res) {
+  const { category } = req.query;
+
+  const products = await ProductService.getAllProducts();
+
+  return category
+    ? res.json(
+        products.filter((product) => product.categories.includes(category))
+      )
+    : res.json(products);
 }
 
-export function getProduct(req, res) {
-  res.json({ message: "message from getProduct" });
+export async function getProductById(req, res) {
+  const { id } = req.params;
+
+  const product = await ProductService.getProductById(id);
+
+  return !product
+    ? res
+        .status(404)
+        .json({ success: false, message: "Product doesn't exists" })
+    : res.json(product);
 }
-export function createProduct(req, res) {
-  res.json({ message: "message from createProduct" });
+
+export async function createProduct(req, res) {
+  const { name, price, categories } = req.body;
+  if (!name || !price || !categories)
+    return res
+      .status(400)
+      .json({ success: false, message: "There's a missing product property" });
+  const product = await ProductService.createProduct({
+    name,
+    price,
+    categories,
+  });
+
+  res.status(201).json({
+    success: true,
+    message: "Product created successfully",
+    data: product,
+  });
 }
-export function deleteProduct(req, res) {
-  res.json({ message: "message from deleteProduct" });
+
+export async function deleteProduct(req, res) {
+  const { id } = req.params;
+
+  const deleted = await ProductService.deleteProduct(id);
+
+  !deleted
+    ? res.status(404).json({ success: false, message: "Product not found" })
+    : res.status(204).json({
+        success: true,
+        message: `Product with id ${id} deleted successfully`,
+      });
+}
+
+export async function updateProduct(req, res) {
+  const { id } = req.params;
+  const { name, price, categories } = req.body;
+
+  const updatedProduct = await ProductService.updateProduct(id, {
+    name,
+    price,
+    categories,
+  });
+
+  if (!updatedProduct)
+    return res
+      .status(404)
+      .json({ success: false, message: "Product doesn't exists" });
+
+  res.status(201).json({
+    success: true,
+    message: "Product updated successfully",
+    data: updatedProduct,
+  });
 }
