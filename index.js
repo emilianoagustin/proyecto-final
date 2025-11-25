@@ -5,12 +5,19 @@ import notFound from "./src/middlewares/not-found.js";
 import productRoutes from "./src/routes/products.routes.js";
 import authRoutes from "./src/routes/auth.routes.js";
 import { verifyToken } from "./src/middlewares/verify-token.js";
+import cookieParser from "cookie-parser";
 
 const PORT = process.env.PORT || 5000;
 const app = express();
 
 app.use(express.json());
-app.use(cors());
+app.use(cookieParser());
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+    credentials: true,
+  })
+);
 app.use("/api/products", verifyToken, productRoutes);
 app.use("/api/auth", authRoutes);
 

@@ -60,6 +60,18 @@ export async function login(req, res) {
       expiresIn: "1h",
     }
   );
+  res.cookie("token", token, {
+    httpOnly: true,
+    sameSite: "lax",
+    secure: false,
+    // secure: true,
+    maxAge: 3600000,
+  });
+  // return res.json({ token });
+  res.json({ message: "Logged in", email: user.email });
+}
 
-  return res.json({ token });
+export function logout(req, res) {
+  res.clearCookie("token", "", { maxAge: new Date(0) });
+  res.json({ message: "Logged out" });
 }
