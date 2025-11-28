@@ -1,3 +1,108 @@
+# Project Setup Guide
+
+## Prerequisites
+
+Before you begin, ensure you have the following installed on your system:
+
+- [Git](https://git-scm.com/downloads) (version 2.52 or higher)
+- [Node.js](https://nodejs.org/) (version 24.1.0 or higher)
+- [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/) package manager
+
+## Clone the Repository
+
+1. Open your terminal or command prompt
+
+2. Navigate to the directory where you want to clone the project:
+
+```bash
+cd /path/to/your/directory
+```
+
+3. Clone the repository:
+
+```bash
+git clone git@github.com:emilianoagustin/proyecto-final.git
+```
+
+4. Navigate into the project directory:
+
+```bash
+cd proyecto-final
+```
+
+## Installation
+
+Install the project dependencies:
+
+**Using npm:**
+
+```bash
+npm install
+```
+
+**Using yarn:**
+
+```bash
+yarn install
+```
+
+## Configuration
+
+1. Copy the example environment file:
+
+```bash
+cp .env.example .env
+```
+
+2. Open the `.env` file and configure the required environment variables:
+
+```
+PORT=
+FIREBASE_API_KEY=
+FIREBASE_AUTH_DOMAIN=
+FIREBASE_PROJECT_ID=
+FIREBASE_STORAGE_BUCKET=
+FIREBASE_MESSAGING_SENDER_ID=
+FIREBASE_APP_ID=
+JWT_SECRET=
+```
+
+## Running the Project
+
+### Development Mode
+
+Start the development server:
+
+**Using npm:**
+
+```bash
+npm run dev
+```
+
+**Using yarn:**
+
+```bash
+yarn dev
+```
+
+The application will be available at `http://localhost:3000`
+
+## Troubleshooting
+
+### Common Issues
+
+**Issue: Port already in use**
+
+- Solution: Change the `PORT` in your `.env` file or kill the process using the port
+
+**Issue: Module not found**
+
+- Solution: Delete `node_modules` folder and `package-lock.json`, then run `npm install` again
+
+---
+
+# API Calls Guide
+
 ## Get All Products
 
 Retrieves a list of all products in the system.
