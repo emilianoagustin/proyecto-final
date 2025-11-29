@@ -26,6 +26,7 @@ export async function getProductById(req, res) {
 
 export async function createProduct(req, res) {
   let { name, price, categories } = req.body;
+
   if (!name || !price || !categories)
     return res
       .status(400)
@@ -63,16 +64,14 @@ export async function updateProduct(req, res) {
   const { id } = req.params;
   let { name, price, categories } = req.body;
 
-  if (typeof price === "string") price = Number(price);
-
   if (!name || !price || !categories)
-    return res
-      .status(422)
-      .json({
-        success: false,
-        message:
-          "There's a missing product property required to perform the update",
-      });
+    return res.status(422).json({
+      success: false,
+      message:
+        "There's a missing product property required to perform the update",
+    });
+
+  if (typeof price === "string") price = Number(price);
 
   const updatedProduct = await ProductService.updateProduct(id, {
     name,
