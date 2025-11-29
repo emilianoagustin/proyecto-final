@@ -103,6 +103,18 @@ The application will be available at `http://localhost:3000`
 
 # API Calls Guide
 
+## Prerequisites
+
+All the `api/products` endpoints are protected, you need to send a jwt in the `authorization` header as a `bearer token` to access them.
+You can register a new user to then login and get the token or you can just use the following credentials:
+
+```json
+{
+  "email": "admin@mail.com",
+  "password": "admin1234"
+}
+```
+
 ## Get All Products
 
 Retrieves a list of all products in the system.
@@ -279,7 +291,7 @@ Creates a new product with the data from the body.
 
 ## User login
 
-Login a user in the application to allow modifications in the database.
+Logins a user in the application and into the response is given the token needed to access all the `/api/products` endpoints.
 
 **Endpoint:** `POST /api/auth/login`
 
