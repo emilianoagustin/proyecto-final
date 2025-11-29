@@ -63,11 +63,9 @@ export async function login(req, res) {
   res.cookie("token", token, {
     httpOnly: true,
     sameSite: "lax",
-    secure: false,
-    // secure: true,
+    secure: true,
     maxAge: 3600000,
   });
-  // return res.json({ token });
   res.json({ message: "Logged in", email: user.email });
 }
 

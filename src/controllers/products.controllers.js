@@ -25,11 +25,14 @@ export async function getProductById(req, res) {
 }
 
 export async function createProduct(req, res) {
-  const { name, price, categories } = req.body;
+  let { name, price, categories } = req.body;
   if (!name || !price || !categories)
     return res
       .status(400)
       .json({ success: false, message: "There's a missing product property" });
+
+  if (typeof price === "string") price = Number(price);
+
   const product = await ProductService.createProduct({
     name,
     price,
@@ -58,7 +61,9 @@ export async function deleteProduct(req, res) {
 
 export async function updateProduct(req, res) {
   const { id } = req.params;
-  const { name, price, categories } = req.body;
+  let { name, price, categories } = req.body;
+
+  if (typeof price === "string") price = Number(price);
 
   const updatedProduct = await ProductService.updateProduct(id, {
     name,
