@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 
-export function verifyToken(req, res, next) {
+export default function verifyToken(req, res, next) {
   const token = req.cookies.token;
   if (!token)
     return res.status(401).json({ success: false, message: "Missing token" });
