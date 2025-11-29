@@ -25,5 +25,7 @@ export async function findUserByEmail(email) {
     } else {
       return null;
     }
-  } catch (error) {}
+  } catch (error) {
+    console.error(`Error finding user email: ${error}`);
+  }
 }

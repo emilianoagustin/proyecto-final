@@ -60,6 +60,15 @@ export async function updateProduct(req, res) {
   const { id } = req.params;
   const { name, price, categories } = req.body;
 
+  if (!name || !price || !categories)
+    return res
+      .status(422)
+      .json({
+        success: false,
+        message:
+          "There's a missing product property required to perform the update",
+      });
+
   const updatedProduct = await ProductService.updateProduct(id, {
     name,
     price,
