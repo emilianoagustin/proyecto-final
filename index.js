@@ -17,6 +17,7 @@ const corsOptions = {
 };
 const app = express();
 
+app.options("*", cors());
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors(corsOptions));
@@ -26,5 +27,5 @@ app.use("/api/auth", authRoutes);
 app.use(notFound);
 
 app.listen(PORT, () =>
-  console.log(`Server running on http://localhost:${PORT}`)
+  console.log(`Server running on http://localhost:${PORT}`),
 );
