@@ -8,7 +8,7 @@ import authRoutes from "./src/routes/auth.routes.js";
 import cookieParser from "cookie-parser";
 
 const PORT = process.env.PORT || 5000;
-const allowedOrigin = process.env.CORS_ORIGIN || "http://localhost:3000";
+const allowedOrigin = "https://front-proyecto-final.vercel.app";
 const corsOptions = {
   origin: allowedOrigin,
   methods: "GET,POST,PUT,DELETE",
@@ -17,7 +17,6 @@ const corsOptions = {
 };
 const app = express();
 
-app.options("*", cors());
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors(corsOptions));
