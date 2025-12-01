@@ -11,8 +11,8 @@ const PORT = process.env.PORT || 5000;
 
 const app = express();
 
-app.options("*", corsMiddleware);
 app.use(corsMiddleware);
+app.options("*", corsMiddleware);
 app.use(cookieParser());
 app.use(express.json());
 app.use("/api/products", verifyToken, productRoutes);
