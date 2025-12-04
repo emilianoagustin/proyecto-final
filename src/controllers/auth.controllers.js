@@ -58,8 +58,23 @@ export async function login(req, res) {
     process.env.JWT_SECRET,
     {
       expiresIn: "1h",
-    }
+    },
   );
+  res.cookie("token", token, {
+    httpOnly: true,
+    sameSite: "none",
+    secure: true,
+    maxAge: 3600000,
+  });
+  res.json({ message: "Logged in", email: user.email });
+}
 
-  return res.json({ token });
+export function logout(req, res) {
+  res.clearCookie("token", {
+    httpOnly: true,
+    sameSite: "none",
+    secure: true,
+    maxAge: new Date(0),
+  });
+  res.json({ message: "Logged out" });
 }
